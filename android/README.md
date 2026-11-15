@@ -1,6 +1,6 @@
 # Offline Android prototype
 
-Download the ready-to-install APK from the repository's Releases page. Android 8.0+ with an up-to-date Android System WebView/Chrome is required. The game is bundled inside the app: no computer, server, accounts or internet connection are needed to play. No Android permissions are requested.
+Download the ready-to-install [Ashglade.apk](https://github.com/narmanb/experimental-jrpg/raw/refs/heads/main/downloads/Ashglade.apk). The Releases page also links to this file. Android 8.0+ with an up-to-date Android System WebView/Chrome is required. The game is bundled inside the app: no computer, server, accounts or internet connection are needed to play. No Android permissions are requested.
 
 This is a debug-signed prototype for direct installation, not a Play Store release. Do not uninstall an older build to update unless Android reports an incompatible signature; future builds signed with a different debug key may require reinstalling. There is no saved game state in this prototype.
 

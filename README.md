@@ -6,7 +6,7 @@ Built with TypeScript, Vite and Canvas 2D. No runtime libraries, external assets
 
 ## Install on Android
 
-Download **Ashglade.apk** from [Releases](https://github.com/narmanb/experimental-jrpg/releases), open the download on your phone and choose Install. Android may ask you to allow installs from your browser. Android 8.0+ with an updated System WebView/Chrome is required. The app contains the full game and works offline; no computer or server is needed.
+Download [**Ashglade.apk**](https://github.com/narmanb/experimental-jrpg/raw/refs/heads/main/downloads/Ashglade.apk), open the download on your phone and choose Install. Android may ask you to allow installs from your browser. Android 8.0+ with an updated System WebView/Chrome is required. The app contains the full game and works offline; no computer or server is needed.
 
 This is a debug-signed test build. See [android/README.md](android/README.md) for build details and verification limits.
 
