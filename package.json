@@ -1,5 +1,24 @@
 {
-  "name": "ashglade", "version": "0.1.0", "private": true, "type": "module",
-  "scripts": { "dev": "vite --host 0.0.0.0", "build": "tsc --noEmit && vite build", "preview": "vite preview --host 0.0.0.0", "test": "vitest run", "test:watch": "vitest", "check": "tsc --noEmit", "test:browser": "playwright test" },
-  "devDependencies": { "@playwright/test": "^1.56.1", "typescript": "^5.9.3", "vite": "^7.2.2", "vitest": "^4.0.9" }
+  "name": "ashglade",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "check": "tsc --noEmit",
+    "test:browser": "playwright test",
+    "android:prepare": "node scripts/build-android-web.mjs",
+    "android:verify": "node scripts/verify-android-web.mjs",
+    "android:build": "npm run android:prepare && cd android && ./gradlew assembleDebug"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.1",
+    "typescript": "^5.9.3",
+    "vite": "^7.2.2",
+    "vitest": "^4.0.9"
+  }
 }

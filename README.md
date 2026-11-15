@@ -4,6 +4,12 @@ An original pixel-art RPG combat playground: three autonomous companions, six Fo
 
 Built with TypeScript, Vite and Canvas 2D. No runtime libraries, external assets, accounts, API keys or game servers. All art is drawn from original pixel patterns and geometry in this repository.
 
+## Install on Android
+
+Download **Ashglade.apk** from [Releases](https://github.com/narmanb/experimental-jrpg/releases), open the download on your phone and choose Install. Android may ask you to allow installs from your browser. Android 8.0+ with an updated System WebView/Chrome is required. The app contains the full game and works offline; no computer or server is needed.
+
+This is a debug-signed test build. See [android/README.md](android/README.md) for build details and verification limits.
+
 ## Run
 
 Requires **Node.js 22.12+** (24 LTS recommended).
