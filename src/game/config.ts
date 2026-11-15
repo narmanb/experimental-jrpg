@@ -11,7 +11,7 @@ export const BALANCE = {
   gaugePerDamage: 0.0015, gaugePerChain: 0.001, gaugeStagger: 0.14,
   gaugeInterrupt: 0.12, gaugeRateCap: 0.09, maxCharges: 5,
   meleeRange: 1.4, rangedRange: 6, healRange: 7,
-  aggroRadius: 4.1, hearingRadius: 5.5, callRadius: 13, maxHostiles: 6,
+  aggroRadius: 4.1, hearingRadius: 7, callRadius: 13, maxHostiles: 6,
   callWindup: 4, slamWindup: 2.7, slamRadius: 2.7, slamDamage: 51,
   repathTime: 0.65, reviveAtb: 1.0,
 } as const;
