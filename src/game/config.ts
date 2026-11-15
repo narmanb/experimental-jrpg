@@ -9,7 +9,7 @@ export const BALANCE = {
   chainLockDuration: 9, focusDuration: 10, focusDamage: 1.28,
   rallyFraction: 0.29, rallyWard: 6, limitDamage: 135,
   gaugePerDamage: 0.0015, gaugePerChain: 0.001, gaugeStagger: 0.14,
-  gaugeInterrupt: 0.12, gaugeRateCap: 0.09, maxCharges: 5,
+  gaugeInterrupt: 0.12, gaugeRateCap: 0.065, gaugeBurstCap: 0.14, maxCharges: 5,
   meleeRange: 1.4, rangedRange: 6, healRange: 7,
   aggroRadius: 4.1, hearingRadius: 7, callRadius: 13, maxHostiles: 6,
   callWindup: 4, slamWindup: 2.7, slamRadius: 2.7, slamDamage: 51,

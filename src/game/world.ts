@@ -52,6 +52,9 @@ export function pathTo(w: World, start: Vec, end: Vec): Vec[] {
   while (k !== origin) { out.push({x:k%w.width+0.5,y:Math.floor(k/w.width)+0.5}); k=parents[k]; }
   out.reverse(); out[out.length-1]=goal; return out;
 }
+export function canReach(w: World,start: Vec,end: Vec): boolean {
+  return isWalkable(w,end.x,end.y) && (lineOfSight(w,start,end) || pathTo(w,start,end).length>0);
+}
 export function moveActor(a: Actor, goal: Vec, speed: number, dt: number, w: World): void {
   if (distance(a,goal) < 0.12) { a.path=[]; return; }
   if (a.rethink <= 0 || !a.goal || distance(a.goal,goal)>1.1) {

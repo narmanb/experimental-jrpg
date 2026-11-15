@@ -17,14 +17,18 @@ test('exploration, autonomous combat, shifts, menu and reset work together', asy
   expect(errors).toEqual([]);
 });
 
-for (const size of [{width:390,height:844},{width:844,height:390},{width:1280,height:900}]) {
+for (const size of [{width:390,height:844},{width:844,height:390},{width:568,height:320},{width:667,height:375},{width:1280,height:900}]) {
   test(`controls fit ${size.width}×${size.height}`,async({page})=>{
     await page.setViewportSize(size);await page.goto('/');await page.getByRole('button',{name:'Enter the glade'}).click();
     const overflow=await page.evaluate(()=>document.documentElement.scrollWidth>window.innerWidth);
     expect(overflow).toBe(false);
     for(const id of ['#formations','#tactics','#party','#menu-button'])await expect(page.locator(id)).toBeVisible();
     const buttons=page.locator('.formation-button');expect(await buttons.count()).toBe(6);
-    for(const button of await buttons.all()) { const box=await button.boundingBox();expect(box!.height).toBeGreaterThanOrEqual(42);expect(box!.x+box!.width).toBeLessThanOrEqual(size.width+1); }
+    for(const button of await buttons.all()) { const box=await button.boundingBox();expect(box!.height).toBeGreaterThanOrEqual(42);expect(box!.x+box!.width).toBeLessThanOrEqual(size.width+1);expect(box!.y+box!.height).toBeLessThanOrEqual(size.height+1); }
+    const geometry=await page.evaluate(()=>Array.from(document.querySelectorAll('.formation-button,.tactic-button')).map(button=>{
+      const rect=button.getBoundingClientRect();const label=button.querySelector('.formation-copy b,.tactic-copy b')!;const range=document.createRange();range.selectNodeContents(label);const text=range.getBoundingClientRect();
+      return {label:label.textContent,fits:text.right<=rect.right-2&&text.left>=rect.left,visible:rect.bottom<=innerHeight+1};
+    }));expect(geometry.filter(g=>!g.fits||!g.visible)).toEqual([]);
     await page.getByRole('button',{name:'Configure formations'}).click();
     await expect(page.getByRole('dialog',{name:'Formation workshop'})).toBeVisible();
     await page.locator('#edit-role-0').selectOption('Healer');

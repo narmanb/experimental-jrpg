@@ -11,7 +11,7 @@ export interface Actor extends Vec {
 export interface Ally extends Actor { role: Role; color: string; index: number }
 export interface Windup extends Vec { kind: 'call' | 'slam' | 'strike'; remaining: number; total: number; target: string }
 export interface Enemy extends Actor {
-  kind: EnemyKind; chain: number; stabilized: number; chainLock: number; staggered: number;
+  kind: EnemyKind; chain: number; stabilized: number; chainLock: number; staggered: number; recovery: number;
   engaged: boolean; alerted: boolean; callUsed: boolean; windup: Windup | null;
   anchor: Vec; patrol: Vec[]; waypoint: number; cooldown: number;
 }

@@ -111,3 +111,9 @@ describe('continuous encounter lifecycle', () => {
     expect(path.some(p => Math.floor(p.x) === 18 && p.y >= 15 && p.y < 18)).toBe(true);
   });
 });
+
+it('post-stagger resistance persists across ticks, then expires normally',()=>{
+  const e=new Game().enemies[0];addChain(e,100,false);tickChain(e,7);tickChain(e,0.2);addChain(e,100,false);
+  expect(e.staggered).toBe(0);expect(e.chain).toBeLessThan(100);
+  tickChain(e,2.1);addChain(e,100,false);expect(e.staggered).toBeGreaterThan(0);
+});

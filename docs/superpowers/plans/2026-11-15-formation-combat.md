@@ -1,6 +1,6 @@
 # Formation Combat Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [x]`) syntax for tracking.
 
 **Goal:** Deliver a polished, browser-playable autonomous formation RPG playground.
 **Architecture:** A deterministic fixed-step simulation independent of the DOM; grid navigation and encounter director; Canvas pixel-art renderer and responsive DOM controls. No runtime dependencies or external assets.
@@ -23,25 +23,25 @@
 ### Task 1: Simulation, AI, navigation and encounter director
 **Files:** `src/game/{types,config,world,mechanics,ai,engine}.ts`, `tests/combat.test.ts`.
 **Interfaces:** `Game` exposes `update(dt)`, `shift(slot)`, `tactic(kind)`, `focus(id)`, `reset(scope)`, `move`, `state`; deterministic `step(seconds)` test helper lives in tests.
-- [ ] Write behavioral tests for stagger/lock/stabilization, valid AI, ATB preservation, gauge costs/anti-farming, Caller interruption, patrol merging, Guardian positioning and victory.
-- [ ] Run `npm test` and observe missing-feature failures.
-- [ ] Implement typed config, tile collision/BFS paths, role actions, combat progression, status/tactics and encounter lifecycle.
-- [ ] Run `npm test` until all simulation behaviors pass.
-- [ ] Commit the tested simulation.
+- [x] Write behavioral tests for stagger/lock/stabilization, valid AI, ATB preservation, gauge costs/anti-farming, Caller interruption, patrol merging, Guardian positioning and victory.
+- [x] Run `npm test` and observe missing-feature failures.
+- [x] Implement typed config, tile collision/BFS paths, role actions, combat progression, status/tactics and encounter lifecycle.
+- [x] Run `npm test` until all simulation behaviors pass.
+- [x] Commit the tested simulation.
 
 ### Task 2: Playable presentation and input
 **Files:** `src/{main,render,hud,input,style}.ts` (style is CSS), `index.html`, `tests/browser.spec.ts`, `playwright.config.ts`.
 **Interfaces:** renderer and HUD consume `Game`; browser input invokes its public methods. Canvas maps pointer positions to world positions.
-- [ ] Write browser acceptance tests for boot/exploration/engagement, autonomous actions, controls, pause, resets and mobile overflow.
-- [ ] Run browser tests to confirm missing presentation failures.
-- [ ] Implement original tiled ruins, animated silhouettes, particles/projectiles, telegraphs and target markers; responsive party/formation/tactical HUD and exploration touch stick.
-- [ ] Add role explanations, help, editable presets, pause/settings, fullscreen and clear failure feedback.
-- [ ] Run `npm run build`, `npm test`, `npm run test:browser`; inspect desktop/portrait/landscape screenshots.
-- [ ] Commit playable prototype.
+- [x] Write browser acceptance tests for boot/exploration/engagement, autonomous actions, controls, pause, resets and mobile overflow.
+- [x] Run browser tests to confirm missing presentation failures.
+- [x] Implement original tiled ruins, animated silhouettes, particles/projectiles, telegraphs and target markers; responsive party/formation/tactical HUD and exploration touch stick.
+- [x] Add role explanations, help, editable presets, pause/settings, fullscreen and clear failure feedback.
+- [x] Run `npm run build`, `npm test`, `npm run test:browser`; inspect desktop/portrait/landscape screenshots.
+- [x] Commit playable prototype.
 
 ### Task 3: Review, tuning and delivery
 **Files:** `README.md`, `DESIGN_NOTES.md`, `.github/workflows/ci.yml`.
-- [ ] Exercise complete encounters and all roles/tactics, tune battle timings and fix any defects with regression tests.
-- [ ] Document setup, controls, tuning constants, P0/P1/P2 coverage, limitations and next improvements.
-- [ ] Run build, type check, simulation and browser suites; obtain whole-project code review and address material findings.
-- [ ] Commit final source and provide repository/run instructions and honest validation results.
+- [x] Exercise complete encounters and all roles/tactics, tune battle timings and fix any defects with regression tests.
+- [x] Document setup, controls, tuning constants, P0/P1/P2 coverage, limitations and next improvements.
+- [x] Run build, type check, simulation and browser suites; obtain whole-project code review and address material findings.
+- [x] Commit final source and provide repository/run instructions and honest validation results.

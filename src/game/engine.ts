@@ -1,6 +1,6 @@
 import { BALANCE as B, COLORS, FORMATIONS, TACTICS } from './config';
 import type { Action, Actor, Ally, Effect, Enemy, EnemyKind, FloatingText, Formation, LogEntry, Tactic, Vec, World } from './types';
-import { createWorld, distance, isWalkable, lineOfSight, moveActor } from './world';
+import { createWorld, distance, isWalkable, canReach, lineOfSight, moveActor } from './world';
 import { addChain, newBuffs, tickActor, tickChain } from './mechanics';
 import { chooseAction, offensiveTarget, positioningGoal } from './ai';
 
@@ -9,7 +9,7 @@ function base(id:string,name:string,x:number,y:number,hp:number): Actor {
   return {id,name,x,y,hp,maxHp:hp,atb:0,buffs:newBuffs(),flash:0,label:'',labelTime:0,path:[],goal:null,rethink:0,actions:0,facing:1};
 }
 function makeEnemy(id:string,kind:EnemyKind,name:string,x:number,y:number,hp:number,patrol:Vec[]=[]): Enemy {
-  return {...base(id,name,x,y,hp),kind,chain:0,stabilized:0,chainLock:0,staggered:0,engaged:false,alerted:false,callUsed:false,windup:null,anchor:{x,y},patrol,waypoint:0,cooldown:1.5};
+  return {...base(id,name,x,y,hp),kind,chain:0,stabilized:0,chainLock:0,staggered:0,recovery:0,engaged:false,alerted:false,callUsed:false,windup:null,anchor:{x,y},patrol,waypoint:0,cooldown:1.5};
 }
 export class Game {
   world: World=createWorld();
@@ -110,7 +110,7 @@ export class Game {
     const spec=TACTICS[kind];
     if (this.mode!=='combat') {this.notify('Tactical skills are available during combat.');return false;}
     if (this.tactical+0.00001<spec.cost) {this.notify(`${spec.name} needs ${spec.cost} charge${spec.cost>1?'s':''}. Earn energy through offense.`,COLORS.gold);return false;}
-    const e=this.enemies.find(e=>e.id===this.focusId&&e.engaged&&e.hp>0)??offensiveTarget(this.party[0],this);
+    const e=this.enemies.find(e=>e.id===this.focusId&&e.engaged&&e.hp>0&&this.party.some(p=>p.hp>0&&canReach(this.world,p,e)))??offensiveTarget(this.party.find(p=>p.hp>0)??this.party[0],this);
     if (!e && kind!=='rally') {this.notify('No reachable hostile target.');return false;}
     this.tactical-=spec.cost; this.spent+=spec.cost; this.intervention=true;
     switch(kind) {
@@ -136,12 +136,12 @@ export class Game {
   update(dt:number):void {
     if (this.paused || this.mode==='defeat') return;
     dt=Math.max(0,Math.min(dt,0.05));this.time+=dt;this.shiftFlash=Math.max(0,this.shiftFlash-dt);this.messageTime=Math.max(0,this.messageTime-dt);
-    this.focusTime=Math.max(0,this.focusTime-dt);this.gaugeBudget=Math.min(0.18,this.gaugeBudget+dt*B.gaugeRateCap);
+    this.focusTime=Math.max(0,this.focusTime-dt);this.gaugeBudget=Math.min(B.gaugeBurstCap,this.gaugeBudget+dt*B.gaugeRateCap);
     this.effects.forEach(e=>e.life-=dt);this.effects=this.effects.filter(e=>e.life>0);
     this.floats.forEach(f=>f.life-=dt);this.floats=this.floats.filter(f=>f.life>0);
     for (const a of [...this.party,...this.enemies]) tickActor(a,dt);
     for (const e of this.enemies) if(e.hp>0) tickChain(e,dt);
-    if (this.focusId && !this.enemies.some(e=>e.id===this.focusId&&e.hp>0)) this.focusId=null;
+    if (this.focusId && !this.enemies.some(e=>e.id===this.focusId&&e.hp>0&&this.party.some(p=>p.hp>0&&canReach(this.world,p,e)))) this.focusId=null;
     if (this.mode==='explore') this.explore(dt); else this.combat(dt);
     this.patrols(dt);
   }

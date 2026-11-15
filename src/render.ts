@@ -17,7 +17,7 @@ export class Renderer {
     const box=this.canvas.getBoundingClientRect(),dpr=Math.min(window.devicePixelRatio||1,2);
     this.width=box.width;this.height=box.height;this.canvas.width=Math.round(box.width*dpr);this.canvas.height=Math.round(box.height*dpr);
     this.ctx.setTransform(dpr,0,0,dpr,0,0);this.ctx.imageSmoothingEnabled=false;
-    this.unit=Math.min(this.width/(this.width<600?23:29),this.height/(this.height<260?13.5:18));
+    this.unit=Math.max(10,Math.min(this.width/(this.width<600?23:29),this.height/(this.height<260?13.5:18)));
   }
   screenToWorld(x:number,y:number):Vec {
     const r=this.canvas.getBoundingClientRect();return {x:(x-r.left-this.width/2)/this.unit+this.camera.x,y:(y-r.top-this.height/2)/this.unit+this.camera.y};
